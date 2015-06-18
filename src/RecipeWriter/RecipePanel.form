@@ -134,15 +134,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="251" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane5" alignment="0" pref="291" max="32767" attributes="0"/>
+                      <Component id="lblXml" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblXml" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+                          <Component id="btnExport" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="93" max="32767" attributes="0"/>
+                          <Component id="btnSaveToFle" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="btnExport" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -154,9 +155,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblXml" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="jScrollPane5" min="-2" pref="120" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnExport" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnExport" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSaveToFle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -165,7 +169,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnExport">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Show xml for all recipes"/>
+            <Property name="text" type="java.lang.String" value="Show xml"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportActionPerformed"/>
@@ -191,6 +195,14 @@
             <Property name="text" type="java.lang.String" value="Xml:"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="btnSaveToFle">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Save this xml"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveToFleActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -204,33 +216,33 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblTitel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                          <Component id="txtTitel" pref="336" max="32767" attributes="0"/>
+                          <Component id="txtTitel" pref="376" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblBereidingsTijd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="txtPrepTime" pref="336" max="32767" attributes="0"/>
+                          <Component id="txtPrepTime" pref="376" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblKookTijd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="txtCookTime" pref="336" max="32767" attributes="0"/>
+                          <Component id="txtCookTime" pref="376" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblOpbrengst" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="txtQuantity" pref="336" max="32767" attributes="0"/>
+                          <Component id="txtQuantity" pref="376" max="32767" attributes="0"/>
                       </Group>
                       <Component id="lblIngredients" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" pref="427" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="467" max="32767" attributes="0"/>
                       <Component id="lblInstructions" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" alignment="0" pref="427" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="467" max="32767" attributes="0"/>
                       <Component id="lblComments" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" alignment="0" pref="427" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="0" pref="467" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblUrl" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          <Component id="txtUrl" pref="401" max="32767" attributes="0"/>
+                          <Component id="txtUrl" pref="441" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="247" pref="247" max="247" attributes="0"/>

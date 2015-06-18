@@ -10,8 +10,12 @@
  */
 package RecipeWriter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
@@ -24,6 +28,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
     Model model;
     ArrayList<Recipe> recepten;
     DefaultListModel listModel;
+    ArrayList<SaveAble> saveNotifiers;
 
     /** Creates new form RecipePanel */
     public RecipePanel() {
@@ -36,6 +41,11 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
         }
         this.listCurrentRecipes.setModel(listModel);
         this.listCurrentRecipes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        saveNotifiers = new ArrayList<SaveAble>();
+    }
+
+    public void addSaveNotifier(SaveAble sa) {
+        saveNotifiers.add(sa);
     }
 
     public void setActiveRecipe(RecipeGetI recipe) {
@@ -84,6 +94,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
         jScrollPane5 = new javax.swing.JScrollPane();
         txtXml = new javax.swing.JTextArea();
         lblXml = new javax.swing.JLabel();
+        btnSaveToFle = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txtPrepTime = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -156,7 +167,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
                 .addContainerGap())
         );
 
-        btnExport.setText("Show xml for all recipes");
+        btnExport.setText("Show xml");
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
@@ -169,18 +180,26 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
 
         lblXml.setText("Xml:");
 
+        btnSaveToFle.setText("Save this xml");
+        btnSaveToFle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveToFleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblXml)
-                        .addGap(179, 179, 179))
-                    .addComponent(btnExport, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .addComponent(lblXml, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnExport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                        .addComponent(btnSaveToFle)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,9 +208,11 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
                 .addContainerGap()
                 .addComponent(lblXml)
                 .addGap(8, 8, 8)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExport)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExport)
+                    .addComponent(btnSaveToFle))
                 .addContainerGap())
         );
 
@@ -247,29 +268,29 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblTitel)
                         .addGap(61, 61, 61)
-                        .addComponent(txtTitel, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                        .addComponent(txtTitel, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblBereidingsTijd)
                         .addGap(31, 31, 31)
-                        .addComponent(txtPrepTime, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                        .addComponent(txtPrepTime, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblKookTijd)
                         .addGap(29, 29, 29)
-                        .addComponent(txtCookTime, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                        .addComponent(txtCookTime, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblOpbrengst)
                         .addGap(35, 35, 35)
-                        .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .addComponent(lblIngredients)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                     .addComponent(lblInstructions)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                     .addComponent(lblComments)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblUrl)
                         .addGap(5, 5, 5)
-                        .addComponent(txtUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
+                        .addComponent(txtUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(247, 247, 247)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,12 +422,17 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
             System.out.println("Error");
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSaveToFleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveToFleActionPerformed
+        notifySave();
+    }//GEN-LAST:event_btnSaveToFleActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEmpty;
     private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnSaveToFle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -515,5 +541,23 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
     @Override
     public void setUrl(String url) {
         txtUrl.setText(url);
+    }
+
+    public void saveToFile(File file) {
+        try {
+            // Create file 
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF8"));
+            out.write(txtXml.getText());
+            //Close the output stream
+            out.close();
+        } catch (Exception e) {//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void notifySave() {
+        for (SaveAble sa : saveNotifiers) {
+            sa.save();
+        }
     }
 }
