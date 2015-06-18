@@ -19,6 +19,7 @@ public class RecipeApplet extends JApplet {
     @Override
     public void init() {
         this.add(new RecipePanel());
+        this.setSize(480, 800);
     }
     // TODO overwrite start(), stop() and destroy() methods
 }
