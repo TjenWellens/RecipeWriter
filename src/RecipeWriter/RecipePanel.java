@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * RecipePanel.java
@@ -544,6 +540,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
     }
 
     public void saveToFile(File file) {
+        System.out.println("SAVE");
         try {
             // Create file 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF8"));
