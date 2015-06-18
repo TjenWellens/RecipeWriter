@@ -4,6 +4,8 @@
  */
 package RecipeWriter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -35,11 +37,28 @@ public class Recipe implements RecipeGetI, RecipeSetI {
         this.url = ri.getUrl();
     }
 
+    public void encodeRecipeValues() {
+        String encoding="ISO-8859-1";   // UTF-8 ISO-8859-1 
+        try {
+            this.recipeTitle = URLEncoder.encode(recipeTitle, encoding);
+            this.prepTime = URLEncoder.encode(prepTime, encoding);
+            this.cookTime = URLEncoder.encode(cookTime, encoding);
+            this.quantity = URLEncoder.encode(quantity, encoding);
+            this.ingredients = URLEncoder.encode(ingredients, encoding);
+            this.instructions = URLEncoder.encode(instructions, encoding);
+            this.comments = URLEncoder.encode(comments, encoding);
+            this.url = URLEncoder.encode(url, encoding);
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Error");
+        }
+    }
+
     public static String toXML(List<Recipe> recepten) {
         String xml = "";
 
         xml += "<?xml version=\"1.0\" encoding=\"utf-8\"?><cookbook version=\"35\">";
         for (Recipe recept : recepten) {
+//            recept.encodeRecipeValues();
             xml += "<recipe>";
             xml += "<title>" + recept.recipeTitle + "</title>";
             xml += "<preptime>" + recept.prepTime + "</preptime>";
@@ -82,6 +101,7 @@ public class Recipe implements RecipeGetI, RecipeSetI {
         xml = xml.replaceAll("ï", "i");
         xml = xml.replaceAll(" ½", ",5");
         xml = xml.replaceAll("½", ",5");
+
         return xml;
     }
 

@@ -27,6 +27,11 @@ public class Model {
         }
     }
     
+    public Recipe getRecipeByTitle(String recipeTitle)
+    {
+        return recepten.get(recipeTitle);
+    }
+    
     public void addRecept(RecipeGetI recipe)
     {
         this.recepten.put(recipe.getRecipeTitle(), new Recipe(recipe));

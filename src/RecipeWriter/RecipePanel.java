@@ -13,6 +13,7 @@ package RecipeWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -34,6 +35,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
             this.listModel.addElement(recipeTitle);
         }
         this.listCurrentRecipes.setModel(listModel);
+        this.listCurrentRecipes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     public void setActiveRecipe(RecipeGetI recipe) {
@@ -101,6 +103,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
         btnDelete = new javax.swing.JButton();
         lblXml = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        btnEdit = new javax.swing.JButton();
 
         lblTitel.setText("Title:");
 
@@ -130,7 +133,7 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
         txtComments.setRows(5);
         jScrollPane3.setViewportView(txtComments);
 
-        btnExport.setText("Show xml");
+        btnExport.setText("Show xml for all recipes");
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
@@ -168,44 +171,52 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
 
         lblXml.setText("Xml:");
 
+        btnEdit.setText("Show");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(128, 128, 128)
+                .addComponent(btnExport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                         .addComponent(lblInstructions)
                         .addComponent(lblComments)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lblUrl)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                            .addComponent(txtUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnEmpty))
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblCurrentrecipes)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnDelete))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(26, 26, 26)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-                                        .addComponent(lblXml, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnExport)
-                                    .addGap(175, 175, 175))))
+                            .addComponent(lblCurrentrecipes)
+                            .addGap(141, 141, 141)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                                .addComponent(lblXml, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblKookTijd)
@@ -215,15 +226,23 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
                                 .addComponent(lblTitel))
                             .addGap(22, 22, 22)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPrepTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                                .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                                .addComponent(txtCookTime, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                                .addComponent(txtTitel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtPrepTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                                .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                                .addComponent(txtCookTime, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                                .addComponent(txtTitel, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))))
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 837, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(675, 675, 675)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnEdit)
+                    .addComponent(btnExport))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -268,27 +287,23 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCurrentrecipes)
                         .addComponent(lblXml))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnDelete)
-                        .addComponent(btnExport))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(8, 8, 8)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(45, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         Recipe recept = makeRecipe();
         String recipeTitle = recept.getRecipeTitle();
-        model.addRecipe(recept);
-        if (!listModel.contains(recipeTitle)) {
-            listModel.addElement(recipeTitle);
-            System.out.println("" + recipeTitle);
-        } else {
-            System.out.println("recipe " + recipeTitle + " edited");
+        if (!recipeTitle.isEmpty()) {
+            model.addRecipe(recept);
+            if (!listModel.contains(recipeTitle)) {
+                listModel.addElement(recipeTitle);
+                System.out.println("" + recipeTitle);
+            } else {
+                System.out.println("recipe " + recipeTitle + " edited");
+            }
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -297,24 +312,34 @@ public class RecipePanel extends javax.swing.JPanel implements RecipeGetI, Recip
     }//GEN-LAST:event_btnEmptyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        List selectedRecipes = listCurrentRecipes.getSelectedValuesList();
-        for (Object object : selectedRecipes) {
-            if (object instanceof String) {
-                String recipeTitle = ((String) object);
-                model.removeRecipe(recipeTitle);
-                listModel.removeElement(object);
-            } else {
-                System.out.println("Error");
-            }
+        Object selectedRecipe = listCurrentRecipes.getSelectedValue();
+        if (selectedRecipe instanceof String) {
+            String recipeTitle = ((String) selectedRecipe);
+            model.removeRecipe(recipeTitle);
+            listModel.removeElement(selectedRecipe);
+        } else {
+            System.out.println("Error");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         txtXml.setText(model.getXml());
     }//GEN-LAST:event_btnExportActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Object selectedRecipe = listCurrentRecipes.getSelectedValue();
+        if (selectedRecipe instanceof String) {
+            String recipeTitle = ((String) selectedRecipe);
+            Recipe recept = model.getRecipeByTitle(recipeTitle);
+            setActiveRecipe(recept);
+        } else {
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEmpty;
     private javax.swing.JButton btnExport;
     private javax.swing.JScrollPane jScrollPane1;
