@@ -38,19 +38,24 @@ public class Recipe implements RecipeGetI, RecipeSetI {
     }
 
     public void encodeRecipeValues() {
-        String encoding="ISO-8859-1";   // UTF-8 ISO-8859-1 
-        try {
-            this.recipeTitle = URLEncoder.encode(recipeTitle, encoding);
-            this.prepTime = URLEncoder.encode(prepTime, encoding);
-            this.cookTime = URLEncoder.encode(cookTime, encoding);
-            this.quantity = URLEncoder.encode(quantity, encoding);
-            this.ingredients = URLEncoder.encode(ingredients, encoding);
-            this.instructions = URLEncoder.encode(instructions, encoding);
-            this.comments = URLEncoder.encode(comments, encoding);
-            this.url = URLEncoder.encode(url, encoding);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("Error");
-        }
+            this.recipeTitle = encodeString(recipeTitle);
+            this.prepTime = encodeString(prepTime);
+            this.cookTime = encodeString(cookTime);
+            this.quantity = encodeString(quantity);
+            this.ingredients = encodeString(ingredients);
+            this.instructions = encodeString(instructions);
+            this.comments = encodeString(comments);
+            this.url = encodeString(url);
+    }
+
+    private String encodeString(String toEncode) {
+        String encoded = toEncode;
+
+        encoded = encoded.replaceAll("&", "&amp;");
+        encoded = encoded.replaceAll(">", "&gt;");
+        encoded = encoded.replaceAll("<", "&lt;");
+
+        return encoded;
     }
 
     public static String toXML(List<Recipe> recepten) {
@@ -58,7 +63,7 @@ public class Recipe implements RecipeGetI, RecipeSetI {
 
         xml += "<?xml version=\"1.0\" encoding=\"utf-8\"?><cookbook version=\"35\">";
         for (Recipe recept : recepten) {
-//            recept.encodeRecipeValues();
+            recept.encodeRecipeValues();
             xml += "<recipe>";
             xml += "<title>" + recept.recipeTitle + "</title>";
             xml += "<preptime>" + recept.prepTime + "</preptime>";
@@ -92,16 +97,21 @@ public class Recipe implements RecipeGetI, RecipeSetI {
             xml += "</recipe>";
         }
         xml += "</cookbook>";
-        xml = xml.replaceAll("±", "ca.");
-        xml = xml.replaceAll("º", "");
-        xml = xml.replaceAll("à", "a");
-        xml = xml.replaceAll("é", "e");
-        xml = xml.replaceAll("è", "e");
-        xml = xml.replaceAll("ë", "e");
-        xml = xml.replaceAll("ï", "i");
-        xml = xml.replaceAll(" ½", ",5");
-        xml = xml.replaceAll("½", ",5");
+        //        xml = xml.replaceAll("±", "ca.");
+        //        xml = xml.replaceAll("º", "");
+        //        xml = xml.replaceAll("à", "a");
+        //        xml = xml.replaceAll("é", "e");
+        //        xml = xml.replaceAll("è", "e");
+        //        xml = xml.replaceAll("ë", "e");
+        //        xml = xml.replaceAll("ï", "i");
+        //        xml = xml.replaceAll(" ½", ",5");
+        //        xml = xml.replaceAll("½", ",5");
 
+//        try {
+//            xml = URLEncoder.encode(xml, "UTF-8");
+//        } catch (UnsupportedEncodingException ex) {
+//            System.out.println("Encode Error");
+//        }
         return xml;
     }
 
